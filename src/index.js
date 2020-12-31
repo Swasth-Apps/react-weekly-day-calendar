@@ -44,10 +44,12 @@ export class DayCircle extends React.Component {
         className={this.props.renderClassNames('dayCircleContainer',(this.props.mobilView ? "rwdp-DayCircle-container" : "rwdp-DayCircle-container rwdp-flex-box rwdp-flex-column rwdp-justify-content-center rwdp-align-items-center") )}
       >
         <div className={this.makeClassNames()}>
+          {!this.props.isCustom ? <>
           <strong>{name}</strong>
           <div>{date}</div>
           {this.renderToday()}
           {this.renderUnavailable()}
+          </> : this.props.customIcon}
         </div>
       </button>
     )
@@ -60,7 +62,15 @@ class ReactWeeklyDayPicker extends React.Component {
 	constructor(props) {
       super(props);
       const selectedDays = this.props.selectedDays || []
+      const customDays = this.props.customDays || []
       let convertedSelectedDays = selectedDays.map((day)=>{
+        if(moment.isMoment(day)){
+          return day;
+        }else{
+          return moment(day);
+        }
+      });
+      let convertedCustomDays = customDays.map((day)=>{
         if(moment.isMoment(day)){
           return day;
         }else{
@@ -80,6 +90,7 @@ class ReactWeeklyDayPicker extends React.Component {
       this.state = {
           daysCount: this.props.daysCount || 7,
           selectedDays: convertedSelectedDays,
+          customDays: convertedCustomDays,
           startDay: convertedStartDay,
           multipleDaySelect: this.props.multipleDaySelect!=undefined ? this.props.multipleDaySelect : true,
           format: this.props.format!=undefined ? this.props.format : null,
@@ -108,8 +119,18 @@ class ReactWeeklyDayPicker extends React.Component {
     }else{
       convertedStartDay = this.state.startDay;
     }
+
+    const customDays = nextProps.customDays || [];
+    let convertedCustomDays = customDays.map((day)=>{
+      if(moment.isMoment(day)){
+        return day;
+      }else{
+        return moment(day);
+      }
+    });
     this.setState({
       selectedDays: convertedSelectedDays,
+      customDays: convertedCustomDays,
       startDay: convertedStartDay,
       daysCount: nextProps.daysCount || 7,
       multipleDaySelect: nextProps!=undefined ? nextProps.multipleDaySelect : true,
@@ -176,6 +197,17 @@ class ReactWeeklyDayPicker extends React.Component {
     let selected = false;
     if(this.state.selectedDays.length > 0){
       this.state.selectedDays.forEach((d,i)=>{
+        if( day.isSame(d, 'day') ){
+          selected = true;
+        }
+      })
+    }
+    return selected;
+  }
+  checkCustomDays(day){
+    let selected = false;
+    if(this.state.customDays.length > 0){
+      this.state.customDays.forEach((d,i)=>{
         if( day.isSame(d, 'day') ){
           selected = true;
         }
@@ -262,7 +294,19 @@ class ReactWeeklyDayPicker extends React.Component {
     })
   }
   renderDesktopView(weekdays){
-    const dayComps = weekdays.map((day,i)=> <DayCircle {...this.props} renderClassNames={this.renderClassNames} todayText={this.props.todayText} unavailableText={this.props.unavailableText} day={day} key={i} click={this.daySelect} selected={this.checkSelectedDay(day)} unavailable={this.checkUnavailables(day)}/>)
+    const dayComps = weekdays.map((day,i)=> <DayCircle
+        {...this.props}
+        renderClassNames={this.renderClassNames}
+        todayText={this.props.todayText}
+        unavailableText={this.props.unavailableText}
+        day={day}
+        key={i}
+        click={this.daySelect}
+        selected={this.checkSelectedDay(day)}
+        isCustom={this.checkCustomDays(day)}
+        unavailable={this.checkUnavailables(day)}
+        customIcon={this.props.customIcon}
+    />)
     return(
       <div className={this.renderClassNames('dayBox','rwdpDayBoxDesktop rwdp-flex-box rwdp-flex-row rwdp-justify-content-space-between')}>
         {dayComps}
@@ -270,7 +314,20 @@ class ReactWeeklyDayPicker extends React.Component {
     )
   }
   renderMobilView(weekdays){
-    const dayComps = weekdays.map((day,i)=> <DayCircle {...this.props} renderClassNames={this.renderClassNames} todayText={this.props.todayText} unavailableText={this.props.unavailableText} day={day} key={i} click={this.daySelect} selected={this.checkSelectedDay(day)} unavailable={this.checkUnavailables(day)} mobilView={true}/>)
+    const dayComps = weekdays.map((day,i)=> <DayCircle
+        {...this.props}
+        renderClassNames={this.renderClassNames}
+        todayText={this.props.todayText}
+        unavailableText={this.props.unavailableText}
+        day={day}
+        key={i}
+        click={this.daySelect}
+        selected={this.checkSelectedDay(day)}
+        isCustom={this.checkCustomDays(day)}
+        unavailable={this.checkUnavailables(day)}
+        customIcon={this.props.customIcon}
+        mobilView={true}/>
+        )
     return(
       <div className={this.renderClassNames('dayBox','rwdpDayBoxMobil rwdp-flex-box rwdp-flex-column rwdp-justify-content-space-between')}>
         {dayComps}
