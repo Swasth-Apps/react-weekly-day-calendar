@@ -37,6 +37,7 @@ export class DayCircle extends React.Component {
     const { firstLineFormat, secondLineFormat, firstLineMobileFormat, secondLineMobileFormat } = this.props;
     const name = this.props.mobilView ? this.props.day.format(firstLineMobileFormat || 'dddd') : this.props.day.format(firstLineFormat || 'ddd')
     const date = this.props.mobilView ? this.props.day.format(secondLineMobileFormat || 'MMMM D, Y') : this.props.day.format(secondLineFormat || 'MMM D')
+    console.log("isCUsssssss",this.props.isCustom);
     return(
       <button
         disabled={this.props.unavailable}
@@ -205,6 +206,7 @@ class ReactWeeklyDayPicker extends React.Component {
     return selected;
   }
   checkCustomDays(day){
+	  console.log("Cutsomtttt Fayafaaf0",this.state.customDays )
     let selected = false;
     if(this.state.customDays.length > 0){
       this.state.customDays.forEach((d,i)=>{
