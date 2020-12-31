@@ -2,7 +2,7 @@
   "name": "react-weekly-day-picker",
   "version": "1.0.3",
   "description": "React Weekly Day Picker",
-  "main": "src/index.js",
+  "main": "lib/index.js",
   "author": {
     "name": "Vikas Vaghasiya"
   },
