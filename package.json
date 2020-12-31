@@ -4,7 +4,7 @@
   "description": "React Weekly Day Picker",
   "main": "lib/index.js",
   "author": {
-    "name": "Hürkan Yakay"
+    "name": "Vikas Vaghasiya"
   },
   "scripts": {
     "start": "cross-env NODE_ENV=development webpack -w",
@@ -19,10 +19,10 @@
     "Date Picker",
     "calendly"
   ],
-  "homepage": "https://github.com/hurkanyakay/react-weekly-day-picker",
-  "repository": "https://github.com/hurkanyakay/react-weekly-day-picker.git",
+  "homepage": "https://github.com/vaghasiyavikas/react-weekly-day-calendar",
+  "repository": "https://github.com/vaghasiyavikas/react-weekly-day-calendar.git",
   "bugs": {
-    "url": "https://github.com/hurkanyakay/react-weekly-day-picker/issues"
+    "url": "https://github.com/vaghasiyavikas/react-weekly-day-calendar/issues"
   },
   "license": "MIT",
   "peerDependency": {
