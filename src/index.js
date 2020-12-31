@@ -44,12 +44,12 @@ export class DayCircle extends React.Component {
         className={this.props.renderClassNames('dayCircleContainer',(this.props.mobilView ? "rwdp-DayCircle-container" : "rwdp-DayCircle-container rwdp-flex-box rwdp-flex-column rwdp-justify-content-center rwdp-align-items-center") )}
       >
         <div className={this.makeClassNames()}>
-          {!this.props.isCustom ? <>
+          {!this.props.isCustom ? <React.Fragment>
           <strong>{name}</strong>
           <div>{date}</div>
           {this.renderToday()}
           {this.renderUnavailable()}
-          </> : this.props.customIcon}
+          </React.Fragment> : this.props.customIcon}
         </div>
       </button>
     )
