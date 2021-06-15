@@ -43,13 +43,15 @@ export class DayCircle extends React.Component {
         onClick={()=>this.props.click(this.props.day)}
         className={this.props.renderClassNames('dayCircleContainer',(this.props.mobilView ? "rwdp-DayCircle-container" : "rwdp-DayCircle-container rwdp-flex-box rwdp-flex-column rwdp-justify-content-center rwdp-align-items-center") )}
       >
-        <div className={this.makeClassNames()}>
-          {!this.props.isCustom ? <React.Fragment>
-          <strong>{name}</strong>
+        <div className="outer-div">
+        <div className={`${this.makeClassNames()} ${this.props.isCustom ? "rwdp-custom-DayCircle" :""}`}>
+          {<React.Fragment>
           <div>{date}</div>
           {this.renderToday()}
           {this.renderUnavailable()}
-          </React.Fragment> : this.props.customIcon}
+          </React.Fragment>}
+        </div>
+          <strong className="day-name">{name}</strong>
         </div>
       </button>
     )
